@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -31,9 +32,56 @@ class MainActivity : ComponentActivity() {
         setContent {
             ProductCatalogTheme {
                 Surface {
-                    MyRow()
+                    MyComplexLayout()
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun MyComplexLayout() {
+    Column(modifier = Modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .background(Color.Cyan)
+        ) {
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+                    .background(Color.Red)
+            )
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+                    .background(Color.Yellow), contentAlignment = Alignment.Center
+            ) {
+                Text("Layout complexo em Compose")
+            }
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .background(Color.Magenta)
+        ) {
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .background(Color.Green)
+        ) {
         }
     }
 }
@@ -106,6 +154,6 @@ fun MyBox() {
 @Composable
 fun GreetingPreview() {
     ProductCatalogTheme {
-        MyRow()
+        MyComplexLayout()
     }
 }
