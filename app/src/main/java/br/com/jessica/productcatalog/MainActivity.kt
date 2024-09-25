@@ -3,11 +3,12 @@ package br.com.jessica.productcatalog
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -27,14 +28,32 @@ import br.com.jessica.productcatalog.ui.theme.ProductCatalogTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             ProductCatalogTheme {
                 Surface {
-                    MyColumn()
+                    MyRow()
                 }
             }
         }
+    }
+}
+
+@Composable
+fun MyRow() {
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .horizontalScroll(rememberScrollState()),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text("Televisão")
+        Text("Celular")
+        Text("Computador")
+        Text("Sofá")
+        Text("Cobertor")
+        Text("Controle Remoto")
+        Text("Janela")
+        Text("Porta")
     }
 }
 
@@ -87,6 +106,6 @@ fun MyBox() {
 @Composable
 fun GreetingPreview() {
     ProductCatalogTheme {
-        MyColumn()
+        MyRow()
     }
 }
