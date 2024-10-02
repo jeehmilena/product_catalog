@@ -9,9 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 
-@Preview
 @Composable
 fun ConstraintExample1() {
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
@@ -55,5 +55,82 @@ fun ConstraintExample1() {
                 bottom.linkTo(boxRed.top)
                 start.linkTo(boxRed.end)
             })
+    }
+}
+
+@Composable
+fun ConstraintExampleGuide() {
+    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+        val boxRed = createRef()
+        val topGuide = createGuidelineFromTop(0.1f)
+        val startGuide = createGuidelineFromStart(0.25f)
+
+        Box(modifier = Modifier
+            .size(124.dp)
+            .background(Color.Red)
+            .constrainAs(boxRed) {
+                top.linkTo(topGuide)
+                start.linkTo(startGuide)
+            })
+    }
+}
+
+@Composable
+fun ConstraintBarrier() {
+    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+        val (boxRed, boxGreen, boxYellow) = createRefs()
+        val barrier = createEndBarrier(boxRed)
+
+        Box(modifier = Modifier
+            .size(234.dp)
+            .background(Color.Red)
+            .constrainAs(boxRed) {
+                top.linkTo(boxGreen.bottom)
+                start.linkTo(parent.start, margin = 32.dp)
+            })
+        Box(modifier = Modifier
+            .size(120.dp)
+            .background(Color.Green)
+            .constrainAs(boxGreen) {
+                start.linkTo(parent.start, margin = 16.dp)
+            })
+        Box(modifier = Modifier
+            .size(50.dp)
+            .background(Color.Yellow)
+            .constrainAs(boxYellow) {
+                start.linkTo(barrier)
+            })
+    }
+}
+
+@Preview
+@Composable
+fun ConstraintChain() {
+    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+        val (boxRed, boxGreen, boxYellow) = createRefs()
+
+        Box(modifier = Modifier
+            .size(75.dp)
+            .background(Color.Red)
+            .constrainAs(boxRed) {
+                start.linkTo(parent.start)
+                end.linkTo(boxGreen.start)
+            })
+        Box(modifier = Modifier
+            .size(75.dp)
+            .background(Color.Green)
+            .constrainAs(boxGreen) {
+                start.linkTo(boxRed.end)
+                end.linkTo(boxYellow.start)
+            })
+        Box(modifier = Modifier
+            .size(75.dp)
+            .background(Color.Yellow)
+            .constrainAs(boxYellow) {
+                start.linkTo(boxGreen.end)
+                end.linkTo(parent.end)
+            })
+
+        createHorizontalChain(boxRed,boxGreen,boxYellow, chainStyle = ChainStyle.Spread)
     }
 }
