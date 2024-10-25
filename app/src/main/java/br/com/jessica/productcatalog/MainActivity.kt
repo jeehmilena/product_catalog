@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ProductCatalogTheme {
                 Surface {
-                    MyButtonExample()
+                    MyProgressAdvance()
                 }
             }
         }
@@ -182,6 +182,6 @@ fun MyBox() {
 @Composable
 fun GreetingPreview() {
     ProductCatalogTheme {
-        MyButtonExample()
+        MyProgressAdvance()
     }
 }
